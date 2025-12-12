@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -17,34 +16,15 @@ android {
         versionName = "1.0"
         
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        
-        // For Room schema export
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf(
-                    "room.schemaLocation" to "$projectDir/schemas",
-                    "room.incremental" to "true"
-                )
-            }
-        }
-    }
-    
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
     }
     
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
-        }
-        debug {
-            isDebuggable = true
         }
     }
     
@@ -55,6 +35,10 @@ android {
     
     kotlinOptions {
         jvmTarget = "17"
+    }
+    
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -68,12 +52,11 @@ dependencies {
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
     
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -83,12 +66,6 @@ dependencies {
     
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-    
-    // CardView
-    implementation("androidx.cardview:cardview:1.0.0")
-    
-    // For SMS permissions
-    implementation("androidx.core:core-role:1.0.0")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
