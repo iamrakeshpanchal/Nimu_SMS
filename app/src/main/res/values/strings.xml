@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Nimu SMS</string>
+    <string name="title_activity_bubble">Message Bubble</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="sms_permission_message">Nimu SMS needs SMS permissions to function as your default messaging app.</string>
+    <string name="grant_permission">Grant Permission</string>
+</resources>
